@@ -1,0 +1,4 @@
+flask
+redis
+matplotlib
+seaborn
