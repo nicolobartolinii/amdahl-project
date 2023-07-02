@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Legge di Amdahl</title>
+</head>
+<body>
+    <h1>Applicazione della legge di Amdahl</h1>
+    <form action="/amdahl">
+        <label for="p">Percentuale del programma che puo' essere parallelizzata (p):</label><br>
+        <input type="number" id="p" name="p" min="0" max="1" step="0.01"><br>
+        <label for="n">Numero di processori (n):</label><br>
+        <input type="number" id="n" name="n" min="1" max="100" step="1"><br>
+        <input type="submit" value="Calcola">
+    </form>
+</body>
+</html>

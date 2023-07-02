@@ -2,3 +2,4 @@ flask
 redis
 matplotlib
 seaborn
+numpy
