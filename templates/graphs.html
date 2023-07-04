@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="it-IT">
+<head>
+    <title>Elenco dei grafici</title>
+</head>
+<body>
+    <h1>Elenco dei grafici generati durante questa sessione</h1>
+    <ul>
+        {% for url in graph_urls %}
+        <li><a href="{{ url }}">Grafico per p = {{ url.split('=')[1].split('&')[0] }}, n = {{ url.split('=')[2] }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

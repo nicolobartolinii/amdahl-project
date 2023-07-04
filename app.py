@@ -87,6 +87,9 @@ def amdahl():
         # Memorizzazione del buffer di memoria in Redis
         r.set(key, buffer.read())
 
+        # Aggiunge la chiave a una lista di chiavi di grafici per questa sessione
+        r.lpush(f'session:{session["id"]}:graphs', key)
+
         # Riposizionamento del puntatore del buffer di memoria all'inizio
         buffer.seek(0)
 
@@ -97,6 +100,21 @@ def amdahl():
         buffer.seek(0)
 
         return send_file(buffer, mimetype='image/png')
+
+
+@app.route('/graphs', methods=['GET'])
+def get_graphs():
+    """
+    Recupera un elenco di URL per tutti i grafici creati durante la sessione corrente.
+    """
+    # Recupera l'elenco delle chiavi di grafico per questa sessione
+    graph_keys = r.lrange(f'session:{session["id"]}:graphs', 0, -1)
+
+    # Costruisce gli URL per ogni grafico
+    graph_urls = [f'/amdahl?p={key.decode("utf-8").split(":")[2]}&n={key.decode("utf-8").split(":")[3]}' for key in
+                  graph_keys]
+
+    return render_template('graphs.html', graph_urls=graph_urls)
 
 
 if __name__ == '__main__':
